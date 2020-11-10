@@ -3,18 +3,17 @@ Option Strict On
 Option Compare Binary
 
 'David Harmon
-
+'RCET0265
+'Fall 2020
+'Car Rental
+'https://github.com/harmdavi/MathContestForm.git
 
 
 Public Class RentalForm
-    'These where a sad attempt on a dream lost. (basically what I thought would work did not at all)
-
-    'Dim mrKrabs As New List(Of String).
-    'Dim number() As String = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"}
-    'Dim letter() As String = {"q", "Q", "w", "W", "e", "E", "r", "R", "t", "T", "y", "Y", "u", "U", "i", "I", "o", "O",
-    '    "p", "P", "a", "A", "s", "S", "d", "D", "f", "F", "g", "G", "h", "H", "j", "J", "k", "K", "l", "L", "z", "Z", "x", "X", "c",
-    '    "C", "v", "V", "b", "B", "n", "N", "m", "M"}
-
+    Dim errorCheckList As List(Of String)
+    Dim goodData, numberCheck As Integer
+    Dim fakeData, fakeDataBad, nameTrue, stateTrue, zipTrue, beginOdomTrue, endOdomTrue, cityTrue, odomBTrue, odomETrue, dayTrue As Boolean
+    Dim minusDiscount, totalCharge, dailyCharge, mileCharge, milesBegin, milesDriven, milesEnd As Double
     Dim errorMessages As New List(Of String)()
     Dim blankCheck As New List(Of String)()
     Dim dailySummery(2, 3) As String
@@ -70,28 +69,6 @@ Public Class RentalForm
         MilesradioButton.Checked = True
     End Sub
 
-    Private Sub MilesradioButton_CheckedChanged(sender As Object, e As EventArgs) Handles MilesradioButton.CheckedChanged
-
-    End Sub
-
-    Private Sub TotalMilesTextBox_TextChanged(sender As Object, e As EventArgs) Handles TotalMilesTextBox.TextChanged
-
-    End Sub
-
-    Private Sub AAAcheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles AAAcheckbox.CheckedChanged
-
-    End Sub
-
-    Dim errorCheckList As List(Of String)
-
-
-    Dim goodData, numberCheck As Integer
-
-    Dim fakeData, nameTrue, stateTrue, zipTrue, beginOdomTrue, endOdomTrue, cityTrue, odomBTrue, odomETrue, dayTrue As Boolean
-
-
-
-    Dim minusDiscount, totalCharge, dailyCharge, mileCharge, milesBegin, milesDriven, milesEnd As Double
 
 
 
@@ -111,7 +88,8 @@ Public Class RentalForm
         End If
     End Sub
 
-    Private Sub CalculateButton_Click(sender As Object, e As EventArgs) Handles CalculateButton.Click
+    Private Sub CalculateButton_Click(sender As Object, e As EventArgs) Handles CalculateButton.Click, CalculateToolStripMenuItem.Click
+
         'The calculate button handles a lot of functions. It calculates the values of the input values. It also handles the other critera that the assingment requires. 
 
 
@@ -146,6 +124,20 @@ Public Class RentalForm
 
         End If
 
+        fakeDataBad = False
+
+
+        If fakeDataBad Then
+            NameTextBox.Text = "Da12!@#$`~()><?RF"
+            AddressTextBox.Text = "asASBMEOZ@#~_-?><$"
+            CityTextBox.Text = "QweFM,><?!@#1231432"
+            StateTextBox.Text = "DaslmeME!234865?!@`~"
+            ZipCodeTextBox.Text = "FemaR1@#4$JFAm+`~"
+            BeginOdometerTextBox.Text = "1293874Jmaerop3r{?>>!~`"
+            EndOdometerTextBox.Text = "08w@JmfEoOInNmvm!`~?)(<><"
+            DaysTextBox.Text = "203874oFlzjc~1`><?E"
+        End If
+
         'This looks at every character in the nametextbox and converts their values into its ASCII value. This way I could filter only letting numbers or letters into 
         'the text boxes. 
 
@@ -166,19 +158,7 @@ Public Class RentalForm
             NameTextBox.Clear()
             goodData += 1
         End If
-        'This was a failed attemnt at using lists and arrays to filter numbers and letters out. 
 
-        'If NameTextBox.Text.Contains("1") Or NameTextBox.Text.Contains("2") Or NameTextBox.Text.Contains("3") Or NameTextBox.Text.Contains("4") Or NameTextBox.Text.Contains("5") Or NameTextBox.Text.Contains("6") Or NameTextBox.Text.Contains("7") Or NameTextBox.Text.Contains("8") Or NameTextBox.Text.Contains("9") Or NameTextBox.Text.Contains("0") Then
-
-        '    nameNumberError = $"ERROR You cannot have a number in the Name Box {vbNewLine}"
-        '    errorMessages.Add(nameNumberError)
-        '    NameTextBox.Clear()
-        '    goodData += 1
-
-        'End If
-
-        'If CityTextBox.Text.Contains("1") Or CityTextBox.Text.Contains("2") Or CityTextBox.Text.Contains("3") Or CityTextBox.Text.Contains("4") Or CityTextBox.Text.Contains("5") Or CityTextBox.Text.Contains("6") Or CityTextBox.Text.Contains("7") Or CityTextBox.Text.Contains("8") Or CityTextBox.Text.Contains("9") Or CityTextBox.Text.Contains("0") Then
-        'End If
 
         For Each thingy In CityTextBox.Text
 
@@ -210,7 +190,7 @@ Public Class RentalForm
 
         If stateTrue Then
 
-            stateNumberError = $"ERROR You cannot have a number in the State text box {vbNewLine}"
+            stateNumberError = $"ERROR You cannot have a number in the State text box{vbNewLine}"
             errorMessages.Add(stateNumberError)
             StateTextBox.Clear()
             goodData += 1
@@ -231,7 +211,7 @@ Public Class RentalForm
 
         If Not zipTrue Then
 
-            zipLetterError = $"ERROR You cannot have a letter or Character in the Zip Code text box {vbNewLine}"
+            zipLetterError = $"ERROR You cannot have a letter or Character in the Zip Code text box{vbNewLine}"
             errorMessages.Add(zipLetterError)
             ZipCodeTextBox.Clear()
             goodData += 1
@@ -252,7 +232,7 @@ Public Class RentalForm
 
 
         If Not odomBTrue Then
-            odomLetterErrorB = $"ERROR You cannot have a letter or Character in the Begin Odometer box {vbNewLine}"
+            odomLetterErrorB = $"ERROR You cannot have a letter or Character in the Begin Odometer box{vbNewLine}"
             errorMessages.Add(odomLetterErrorB)
             BeginOdometerTextBox.Clear()
             goodData += 1
@@ -272,27 +252,18 @@ Public Class RentalForm
         Next
 
         If Not odomETrue Then
-            odomLetterErrorE = $"ERROR You cannot have a letter or Character in the End Odometer box {vbNewLine}"
+            odomLetterErrorE = $"ERROR You cannot have a letter or Character in the End Odometer box{vbNewLine}"
             errorMessages.Add(odomLetterErrorE)
             EndOdometerTextBox.Clear()
             goodData += 1
 
         End If
 
-
-        'This block of code turned out not to be nessisary because the case structure took care of negative numbers since "-" is considered a character
-        ''If BeginOdometerTextBox.Handle.ToInt32 < 0 Or EndOdometerTextBox.Handle.ToInt32 < 0 Then
-        ''    odomNegativeError = "ERROR You cannot have a negative number in either of the Odometer boxes"
-        ''    errorMessages.Add(odomNegativeError)
-        ''    BeginOdometerTextBox.Clear()
-        ''    EndOdometerTextBox.Clear()
-        ''    goodData += 1
-        ''End If
         Try
 
 
             If CInt(BeginOdometerTextBox.Text) > CInt(EndOdometerTextBox.Text) Then
-                odomGreatLessError = $"ERROR You cannot have the beginning Odometer number greater then the End Odometer number {vbNewLine}"
+                odomGreatLessError = $"ERROR You cannot have the beginning Odometer number greater then the End Odometer number{vbNewLine}"
                 errorMessages.Add(odomGreatLessError)
                 BeginOdometerTextBox.Clear()
                 EndOdometerTextBox.Clear()
@@ -315,18 +286,23 @@ Public Class RentalForm
 
         If Not dayTrue Then
 
-            daysLetterError = $"ERROR You cannot have letters or Characters in the Number of Days box {vbNewLine}"
+            daysLetterError = $"ERROR You cannot have letters or Characters in the Number of Days box{vbNewLine}"
             errorMessages.Add(daysLetterError)
             DaysTextBox.Clear()
             goodData += 1
         End If
 
-        If CInt(DaysTextBox.Text) > 45 Or CInt(DaysTextBox.Text) < 0 Then
-            daysGreaterError = $"ERROR You cannot have Days less than 0 or greater then 45 in the Number of Days box {vbNewLine}"
-            errorMessages.Add(daysGreaterError)
-            DaysTextBox.Clear()
-            goodData += 1
-        End If
+        Try
+
+            If CInt(DaysTextBox.Text) > 45 Or CInt(DaysTextBox.Text) < 0 Then
+                daysGreaterError = $"ERROR You cannot have Days less than 0 or greater then 45 in the Number of Days box{vbNewLine}"
+                errorMessages.Add(daysGreaterError)
+                DaysTextBox.Clear()
+                goodData += 1
+            End If
+        Catch ex As Exception
+
+        End Try
 
         blankCheck.Add(NameTextBox.Text)
         blankCheck.Add(AddressTextBox.Text)
@@ -338,7 +314,7 @@ Public Class RentalForm
         blankCheck.Add(DaysTextBox.Text)
 
         If blankCheck.Contains("") Then
-            blankSpaceError = $"ERROR You cannot leave any of the boxes empty {vbNewLine}"
+            blankSpaceError = $"ERROR You cannot leave any of the boxes empty{vbNewLine}"
             errorMessages.Add(blankSpaceError)
             goodData += 1
         End If
@@ -405,16 +381,7 @@ Public Class RentalForm
             TotalDiscountTextBox.Text = FormatCurrency($"${minusDiscount}",,, TriState.True, TriState.True)
             TotalChargeTextBox.Text = FormatCurrency($"${totalCharge}",,, TriState.True, TriState.True)
 
-            'If milesDriven < 200 Then
-            '    mileCharge = 90
-            'End If
 
-            'If milesDriven < 201 And milesDriven > 500 Then
-            'End If
-
-            'If milesDriven > 501 Then
-
-            'End If
 
 
             'MsgBox($"miles Driven = {milesDriven} {vbNewLine} Mile Charge = {mileCharge} {vbNewLine} Daily Charge = {dailyCharge}")
@@ -422,17 +389,6 @@ Public Class RentalForm
             totalCustomers += 1
             totalDistance += milesDriven
             totalDailyCharges += totalCharge
-
-
-            'This was an attempt to make the summery button code simplier but it actually made it harder. I found a less eligant way to get the job done. 
-
-            'dailySummery(1, 1) = "Total Number of Consumers Today = "
-            'dailySummery(1, 2) = "Total Distance Driven Today = "
-            'dailySummery(1, 3) = "Total Charges Today = "
-
-            'dailySummery(2, 1) = $"{totalCustomers}"
-            'dailySummery(2, 2) = $"{totalDistance}"
-            'dailySummery(2, 3) = $"{totalDailyCharges}"
 
         Else
             'This is a redundancy incase something gets super broken but it shouldnt ever work.
@@ -467,7 +423,6 @@ Public Class RentalForm
         SummaryButton.Enabled = False
     End Sub
 
-    'Public Function GetEnumerator() As IEnumerator Implements IEnumerable.GetEnumerator
-    '    Throw New NotImplementedException()
-    'End Function
+
 End Class
+
