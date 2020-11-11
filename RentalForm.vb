@@ -15,6 +15,11 @@ Public Class RentalForm
     Dim fakeData, fakeDataBad, nameTrue, stateTrue, zipTrue, beginOdomTrue, endOdomTrue, cityTrue, odomBTrue, odomETrue, dayTrue As Boolean
     Dim minusDiscount, totalCharge, dailyCharge, mileCharge, milesBegin, milesDriven, milesEnd As Double
     Dim errorMessages As New List(Of String)()
+
+    Private Sub ExitToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem1.Click
+
+    End Sub
+
     Dim blankCheck As New List(Of String)()
     Dim dailySummery(2, 3) As String
     Dim nameNumberError, cityNumberError, stateNumberError, zipLetterError, odomLetterErrorB, odomLetterErrorE, endOdomLetterError, odomNegativeError As String
@@ -29,7 +34,7 @@ Public Class RentalForm
 
 
 
-    Private Sub SummaryButton_Click(sender As Object, e As EventArgs) Handles SummaryButton.Click
+    Private Sub SummaryButton_Click(sender As Object, e As EventArgs) Handles SummaryButton.Click, SummaryToolStripMenuItem1.Click
         'This performs the summery button function. This Perfoms eveything that the clear funtion does and also displays a running total of 
         'the ammount of customers that were seen that day, the total number of miles driven, and also the total amount of money made in the day
         MsgBox($"TotalNumber of Customers = {totalCustomers} {vbNewLine} Total Distance Traveled = {totalDistance} Miles {vbNewLine} Total Daily Charges = ${totalDailyCharges} ")
@@ -49,7 +54,7 @@ Public Class RentalForm
         TotalChargeTextBox.Text = ""
     End Sub
 
-    Private Sub ClearButton_Click(sender As Object, e As EventArgs) Handles ClearButton.Click
+    Private Sub ClearButton_Click(sender As Object, e As EventArgs) Handles ClearButton.Click, ClearToolStripMenuItem1.Click
         'this sub handles the event when the clear button is pressed. This clears all of the fields for the resultant and user input text boxes. 
         NameTextBox.Text = ""
         AddressTextBox.Text = ""
@@ -68,13 +73,6 @@ Public Class RentalForm
 
         MilesradioButton.Checked = True
     End Sub
-
-
-
-
-
-
-
 
     Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
         'This handles the evet when the exit button is pressed. There is a message box that opens and propts the user if they are sure if they want to exit. 
@@ -381,11 +379,6 @@ Public Class RentalForm
             TotalDiscountTextBox.Text = FormatCurrency($"${minusDiscount}",,, TriState.True, TriState.True)
             TotalChargeTextBox.Text = FormatCurrency($"${totalCharge}",,, TriState.True, TriState.True)
 
-
-
-
-            'MsgBox($"miles Driven = {milesDriven} {vbNewLine} Mile Charge = {mileCharge} {vbNewLine} Daily Charge = {dailyCharge}")
-
             totalCustomers += 1
             totalDistance += milesDriven
             totalDailyCharges += totalCharge
@@ -399,24 +392,6 @@ Public Class RentalForm
         If totalCustomers > 0 Then
             SummaryButton.Enabled = True
         End If
-    End Sub
-
-    Private Sub EvaluateTextBoxes()
-
-
-
-    End Sub
-
-    Private Sub NameTextBox_TextChanged(sender As Object, e As EventArgs) Handles NameTextBox.TextChanged
-
-    End Sub
-
-    Private Sub ZipCodeTextBox_TextChanged(sender As Object, e As EventArgs) Handles ZipCodeTextBox.TextChanged
-
-    End Sub
-
-    Private Sub DaysTextBox_TextChanged(sender As Object, e As EventArgs) Handles DaysTextBox.TextChanged
-
     End Sub
 
     Private Sub RentalForm_Load(sender As Object, e As EventArgs) Handles Me.Load
