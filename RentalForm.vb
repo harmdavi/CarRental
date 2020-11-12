@@ -10,17 +10,10 @@ Option Compare Binary
 
 
 Public Class RentalForm
-    Dim errorCheckList As List(Of String)
-    Dim goodData, numberCheck As Integer
-    Dim fakeData, fakeDataBad, nameTrue, stateTrue, zipTrue, beginOdomTrue, endOdomTrue, cityTrue, odomBTrue, odomETrue, dayTrue As Boolean
-    Dim minusDiscount, totalCharge, dailyCharge, mileCharge, milesBegin, milesDriven, milesEnd As Double
-    Dim errorMessages As New List(Of String)()
-
     Private Sub ExitToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem1.Click
 
     End Sub
 
-    Dim blankCheck As New List(Of String)()
     Dim dailySummery(2, 3) As String
     Dim nameNumberError, cityNumberError, stateNumberError, zipLetterError, odomLetterErrorB, odomLetterErrorE, endOdomLetterError, odomNegativeError As String
     Dim customerRunningTotal, distanceRunningTotal, chargesRunningTotal As String
@@ -28,7 +21,6 @@ Public Class RentalForm
     Dim totalCustomers, totalDistance, totalDailyCharges As Double
 
 
-    Dim sResult As String = ""
 
     Dim summeryEnabled As Boolean
 
@@ -90,8 +82,16 @@ Public Class RentalForm
 
         'The calculate button handles a lot of functions. It calculates the values of the input values. It also handles the other critera that the assingment requires. 
 
-
+        Dim errorCheckList As List(Of String)
+        Dim sResult As String
+        Dim blankCheck As New List(Of String)()
+        Dim errorMessages As New List(Of String)()
+        Dim goodData, numberCheck As Integer
+        Dim fakeData, fakeDataBad, nameTrue, stateTrue, zipTrue, beginOdomTrue, endOdomTrue, cityTrue, odomBTrue, odomETrue, dayTrue As Boolean
+        Dim minusDiscount, totalCharge, dailyCharge, mileCharge, milesBegin, milesDriven, milesEnd As Double
         Dim textNumbers As New List(Of String)
+
+
         'These values are for default purposes. This is needed to help the logic of the program
         errorMessages.Clear()
         stateTrue = False
@@ -135,6 +135,22 @@ Public Class RentalForm
             EndOdometerTextBox.Text = "08w@JmfEoOInNmvm!`~?)(<><"
             DaysTextBox.Text = "203874oFlzjc~1`><?E"
         End If
+
+        blankCheck.Add(NameTextBox.Text)
+        blankCheck.Add(AddressTextBox.Text)
+        blankCheck.Add(CityTextBox.Text)
+        blankCheck.Add(StateTextBox.Text)
+        blankCheck.Add(ZipCodeTextBox.Text)
+        blankCheck.Add(BeginOdometerTextBox.Text)
+        blankCheck.Add(EndOdometerTextBox.Text)
+        blankCheck.Add(DaysTextBox.Text)
+
+        If blankCheck.Contains("") Then
+            blankSpaceError = $"ERROR You cannot leave any of the boxes empty{vbNewLine}"
+            errorMessages.Add(blankSpaceError)
+            goodData += 1
+        End If
+
 
         'This looks at every character in the nametextbox and converts their values into its ASCII value. This way I could filter only letting numbers or letters into 
         'the text boxes. 
@@ -302,21 +318,6 @@ Public Class RentalForm
 
         End Try
 
-        blankCheck.Add(NameTextBox.Text)
-        blankCheck.Add(AddressTextBox.Text)
-        blankCheck.Add(CityTextBox.Text)
-        blankCheck.Add(StateTextBox.Text)
-        blankCheck.Add(ZipCodeTextBox.Text)
-        blankCheck.Add(BeginOdometerTextBox.Text)
-        blankCheck.Add(EndOdometerTextBox.Text)
-        blankCheck.Add(DaysTextBox.Text)
-
-        If blankCheck.Contains("") Then
-            blankSpaceError = $"ERROR You cannot leave any of the boxes empty{vbNewLine}"
-            errorMessages.Add(blankSpaceError)
-            goodData += 1
-        End If
-
         'This portion is something that I found online that allows for the contents of my list to be displayed in a msgbox.
         'https://stackoverflow.com/questions/16054054/display-content-of-the-array-list
 
@@ -329,7 +330,7 @@ Public Class RentalForm
         If goodData <> 0 Then
             MsgBox(sResult)
             errorMessages.Clear()
-            sResult = ""
+
 
 
         ElseIf goodData = 0 Then
@@ -392,6 +393,19 @@ Public Class RentalForm
         If totalCustomers > 0 Then
             SummaryButton.Enabled = True
         End If
+        NameTextBox.Text = ""
+        AddressTextBox.Text = ""
+        CityTextBox.Text = ""
+        StateTextBox.Text = ""
+        ZipCodeTextBox.Text = ""
+        BeginOdometerTextBox.Text = ""
+        EndOdometerTextBox.Text = ""
+        DaysTextBox.Text = ""
+
+
+
+
+
     End Sub
 
     Private Sub RentalForm_Load(sender As Object, e As EventArgs) Handles Me.Load
